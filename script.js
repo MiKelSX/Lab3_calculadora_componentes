@@ -1,43 +1,59 @@
-const pantalla = document.querySelector(".pantalla");
-const botones = document.querySelectorAll(".btn");
+class Calculadora {
+  constructor() {
+    this.historial = [];
+  }
+  
+  evaluar(expresion) {
+    try {
+      const r = eval(expresion);
+      this.historial.push(r);
+      return r;
+    } catch {
+      return "Error!";
+    }
+  }
+  mostrarHistorial() {
+    return this.historial;
+  }
 
-botones.forEach(boton => {
-    boton.addEventListener("click", () => {
-        console.log(boton.textContent);
-        const valor = boton.textContent
-        //pantalla.textContent = valor;
 
-        if (boton.id === "c"){
-            pantalla.textContent = "De nuevo";
-            return;
-        }
+  sumar(a, b) {
+    const r = a + b;
+    this.historial.push(r);
+    console.log(this.sumar(a,b));
+    return r;
+  }
 
-        if (boton.id === "borrar") {
-            if (pantalla.textContent.length === 1 || pantalla.textContent === "Error!" || pantalla.textContent === "De nuevo" || pantalla.textContent === "ALGO") {
-                pantalla.textContent = "0";
-            } else {
-                pantalla.textContent = pantalla.textContent.slice(0, -1);
-            }
-            return;
-        }
+  restar(a, b) {
+    const r = a - b;
+    this.historial.push(r);
+    return r;
+  }
 
-        //if (boton.id === "btn_igual"){
-            //pantalla.textContent = eval(pantalla.textContent);
-            //return;}
-        if (boton.id === "btn_igual") {
-            try {
-                pantalla.textContent = eval(pantalla.textContent);
-            } catch {
-                pantalla.textContent = "Error!";
-            }
-            return;
-        }
+  multiplicar(a, b) {
+    const r = a * b;
+    this.historial.push(r);
+    return r;
+  }
 
-        if (pantalla.textContent === "ALGO" || pantalla.textContent === "De nuevo"){
-            pantalla.textContent = valor;
-        } else {
-            pantalla.textContent += valor;
-        }
+  dividir(a, b) {
+    if (b === 0) {
+      this.historial.push("Error: división por cero");
+      return "Error";
+    }
+    const r = a / b;
+    this.historial.push(r);
+    return r;
+  }
 
-    })
-})
+  ultimoResultado() {
+    return this.historial[this.historial.length - 1];
+  }
+}
+
+
+// Ejemplo en consola:
+const calc = new Calculadora();
+console.log(calc.sumar(5, 3));       // 8
+console.log(calc.multiplicar(2, 4)); // 8
+console.log(calc.mostrarHistorial()); // [8, 8]
