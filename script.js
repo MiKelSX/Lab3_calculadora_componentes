@@ -18,11 +18,12 @@ class Calculadora {
 
 
   sumar(a, b) {
-    const r = a + b;
-    this.historial.push(r);
-    console.log(this.sumar(a,b));
-    return r;
+  const r = a + b;
+  this.historial.push(r);
+  console.log(r);   // mostrar el resultado, no volver a llamar a sumar
+  return r;
   }
+
 
   restar(a, b) {
     const r = a - b;

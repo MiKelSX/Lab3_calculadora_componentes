@@ -1,5 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
+import os
+
 app = Flask(__name__)
+
+# Ruta para servir tu index.html directamente
+@app.route("/")
+def home():
+    return send_file("index.html")  # asegúrate que index.html esté en la misma carpeta que server.py
 
 @app.route("/calcular", methods=["POST"])
 def calcular():

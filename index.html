@@ -20,12 +20,62 @@
   </table>
 
   <script>
+    // Clase Calculadora
+    class Calculadora {
+      constructor() {
+        this.historial = [];
+      }
+      evaluar(expresion) {
+        try {
+          const r = eval(expresion);
+          this.historial.push(r);
+          return r;
+        } catch {
+          return "Error!";
+        }
+      }
+      mostrarHistorial() {
+        return this.historial;
+      }
+      sumar(a, b) {
+        const r = a + b;
+        this.historial.push(r);
+        console.log(r);
+        return r;
+      }
+      restar(a, b) {
+        const r = a - b;
+        this.historial.push(r);
+        return r;
+      }
+      multiplicar(a, b) {
+        const r = a * b;
+        this.historial.push(r);
+        return r;
+      }
+      dividir(a, b) {
+        if (b === 0) {
+          this.historial.push("Error: división por cero");
+          return "Error";
+        }
+        const r = a / b;
+        this.historial.push(r);
+        return r;
+      }
+      ultimoResultado() {
+        return this.historial[this.historial.length - 1];
+      }
+    }
+
+    // Lógica de la interfaz
     const pantalla = document.getElementById("pantalla");
     let expresion = "";
+    let nuevaOperacion = false;
+    const calc = new Calculadora();
 
     document.querySelectorAll("td").forEach(celda => {
       celda.addEventListener("click", () => {
-        const valor = celda.textContent;
+        const valor = celda.textContent.trim();
 
         if (celda.id === "c") {
           expresion = "";
@@ -41,9 +91,10 @@
 
         if (valor === "=") {
           try {
-            const resultado = eval(expresion);
+            const resultado = calc.evaluar(expresion);
             pantalla.textContent = resultado;
-            expresion = resultado.toString(); // guarda para la siguiente operación
+            expresion = resultado.toString();
+            nuevaOperacion = true;
           } catch {
             pantalla.textContent = "Error!";
             expresion = "";
@@ -52,7 +103,12 @@
         }
 
         if (valor.match(/[0-9+\-*/.]/)) {
-          expresion += valor;
+          if (nuevaOperacion && valor.match(/[0-9]/)) {
+            expresion = valor; // empezar nueva operación si se presiona un número
+            nuevaOperacion = false;
+          } else {
+            expresion += valor;
+          }
           pantalla.textContent = expresion;
         }
       });

@@ -3,6 +3,7 @@ body {
     background-color: #cccdd6;
     display: grid;
     place-items: center;
+    font-family: Arial, sans-serif;
 }
 
 .calculadora {
@@ -27,9 +28,11 @@ body {
     margin-bottom: 1rem;
     font-family: monospace;
     font-weight: 600;
+    color: #0f0;
 }
+
 .btn {
-    background-color: #212129;;
+    background-color: #212129;
     color: white;
     border: 0;
     padding: 1.5rem .5rem;
@@ -39,6 +42,7 @@ body {
     align-items: center;
     border-radius: .5rem;
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .btn:hover {
@@ -57,4 +61,3 @@ body {
 #btn_igual:hover {
     background-color: #342bac;
 }
-
